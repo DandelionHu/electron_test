@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <button id="openBtn">打开图片</button>
+  <img src="" id="showImg" alt="">
+  <button id="saveBtn">保存图片</button>
+  <button id="messageBtn">弹出对话框</button>
+  <button id="notifyBtn">通知消息</button>
+</body>
+<script>
+  const { dialog } =require('electron').remote
+  const fs = require('fs')
+  const openBtn = this.document.querySelector("#openBtn")
+  const showImg = this.document.querySelector("#showImg")
+  const saveBtn = this.document.querySelector("#saveBtn")
+  const messageBtn = this.document.querySelector("#messageBtn")
+  const notifyBtn = this.document.querySelector("#notifyBtn")
+  openBtn.onclick = ()=>{
+    dialog.showOpenDialog({
+      title:'请选择图片',
+      filters:[
+        {
+          name:'img',
+          extensions:['jpg','png']
+        }
+      ],
+      buttonLabel:'打开图片'
+    }).then((res)=>{
+      console.log(res)
+      showImg.setAttribute('src',res.filePaths[0])
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
+  saveBtn.onclick = ()=>{
+    dialog.showSaveDialog({
+      title:'保存文件'
+    }).then(res=>{
+      console.log(res)
+      fs.writeFileSync(res.filePath,'111111')
+    }).catch(err=>{
+      console.log(err)
+    })
+  }
+  messageBtn.onclick = ()=>{
+    dialog.showMessageBox({
+      type: 'warning',
+      title: '删除提示',
+      message: '是不是要删除',
+      buttons: [
+          '确定',
+          '取消'
+      ]
+    }).then(res=>{
+      console.log(res)
+      if(res.response==0){
+        // 确定
+      }else{
+        // 取消
+      }
+    })
+  }
+  // 网络连接
+  window.addEventListener('online',function () {
+    alert('网络连接成功')
+  })
+  // 断网
+  window.addEventListener('offline',function () {
+    alert('网络连接失败')
+  })
+  // 通知消息
+  var options = {
+    title: '小二，出来接客',
+    body: '美团有订单了'
+  }
+  notifyBtn.onclick = () => {
+    new Notification(options.title,options)
+  }
+
+</script>
+</html>

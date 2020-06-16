@@ -1,0 +1,25 @@
+{
+  "name": "electron_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DandelionHu/electron_test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DandelionHu/electron_test/issues"
+  },
+  "homepage": "https://github.com/DandelionHu/electron_test#readme",
+  "dependencies": {
+    "electron": "^9.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0"
+  }
+}
