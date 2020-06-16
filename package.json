@@ -4,7 +4,11 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "packager": "electron-packager ./ electron_test --all --out ./outApp  --overwrite --icon=./src/favicon.ico",
+    "packager1": "electron-packager ./ --platform=win32 --out ./outApp --arch=ia32 --overwrite --electron-version=9.0.4",
+    "packager2": "electron-packager ./ --platform=win32 --out ./outApp --arch=x64 --overwrite --electron-version=9.0.4 --icon=favicon.ico",
+    "packager3": "electron-packager ./ --platform=linux --out ./outApp --arch=x64 --overwrite --electron-version=9.0.4"
   },
   "repository": {
     "type": "git",
@@ -20,6 +24,7 @@
     "electron": "^9.0.4"
   },
   "devDependencies": {
+    "electron-packager": "^14.2.1",
     "eslint": "^7.2.0"
   }
 }

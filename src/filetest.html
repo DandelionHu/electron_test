@@ -10,15 +10,20 @@
   <button id="saveBtn">保存图片</button>
   <button id="messageBtn">弹出对话框</button>
   <button id="notifyBtn">通知消息</button>
+  <div id="code">JDHDGDS737Gss299</div>
+  <button id="copyBtn">复制激活码</button>
 </body>
 <script>
   const { dialog } =require('electron').remote
+  const { clipboard } =require('electron')
   const fs = require('fs')
   const openBtn = this.document.querySelector("#openBtn")
   const showImg = this.document.querySelector("#showImg")
   const saveBtn = this.document.querySelector("#saveBtn")
   const messageBtn = this.document.querySelector("#messageBtn")
   const notifyBtn = this.document.querySelector("#notifyBtn")
+  const copyBtn = this.document.querySelector("#copyBtn")
+  const code = this.document.querySelector("#code")
   openBtn.onclick = ()=>{
     dialog.showOpenDialog({
       title:'请选择图片',
@@ -80,6 +85,9 @@
   notifyBtn.onclick = () => {
     new Notification(options.title,options)
   }
-
+  // 复制激活码
+  copyBtn.onclick = ()=>{
+    clipboard.writeText(code.innerHTML)
+  }
 </script>
 </html>
