@@ -53,11 +53,33 @@ app.on('ready',()=>{
   let isRegister = globalShortcut.isRegistered('ctrl+e')?'register ok':'fail'
   console.log(isRegister)
 
+  // 注册全局快捷键
+  let level = 0;
+  // 注册一个 'CommandOrControl+X' 的全局快捷键
+  const ret = globalShortcut.register('CommandOrControl+0', () => {
+    level = 0
+    mainWindow.webContents.setZoomLevel(0);
+  });
+  if (!ret) {
+    console.log('registration failed');
+  }
+  // 验证是否注册成功
+  console.log(globalShortcut.isRegistered('CommandOrControl+0'))
+  mainWindow.webContents.on('zoom-changed', (e, zoomDirection) => {
+    if (zoomDirection === 'in') {
+      level = level >= 3 ? level : level += 0.2;
+    } else {
+      level = level <= -3 ? level : level -= 0.2;
+    }
+    mainWindow.webContents.setZoomLevel(level);
+  });
+
 })
 // 即将退出
 app.on('will-quit',()=>{
   // 注销全局快捷键方法
   globalShortcut.unregister('ctrl+e') // 单个取消
+  globalShortcut.unregister('CommandOrControl+0') // 单个取消
   globalShortcut.unregisterAll() //全部取消
 })
 
